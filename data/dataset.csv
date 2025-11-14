@@ -1,0 +1,18 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def monte_carlo_mean_threshold(n_sims=10000, sample_size=30, threshold=0.6):
+    results = []
+    for _ in range(n_sims):
+        s = np.random.rand(sample_size)  # giả sử dữ liệu U(0,1)
+        results.append(np.mean(s))
+    results = np.array(results)
+    plt.hist(results, bins=50)
+    plt.xlabel('Sample mean')
+    plt.savefig('results/figures/montecarlo_plot.png')
+    return np.mean(results > threshold)
+
+if __name__ == "__main__":
+    prob = monte_carlo_mean_threshold()
+    print("Estimated P(mean>0.6) =", prob)
